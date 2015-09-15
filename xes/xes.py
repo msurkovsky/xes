@@ -7,10 +7,6 @@ class Log():
     """
     def __init__(self):
         self.CREATOR = "Python XES v1.2"
-        self.log = ET.Element("log")
-        self.log.set("xes.version", "1.0")
-        self.log.set("xmlns", "http://www.xes-standard.org")
-        self.log.set("xes.creator", self.CREATOR)
 
         self.attributes = []
         self.traces = []
@@ -83,6 +79,11 @@ class Log():
                         )
 
     def build_log(self):
+        self.log = ET.Element("log")
+        self.log.set("xes.version", "1.0")
+        self.log.set("xmlns", "http://www.xes-standard.org")
+        self.log.set("xes.creator", self.CREATOR)
+
         if len(self.classifiers) == 0:
             print "XES Warning! Classifiers not set. \n"
 
@@ -134,7 +135,6 @@ class Event():
     An event class. Add attributes to an event.
     """
     def __init__(self):
-        self.xml = ET.Element("event")
         self.attributes = []
 
     def add_attribute(self, attr):
@@ -142,6 +142,7 @@ class Event():
         return self
 
     def build_event(self):
+        self.xml = ET.Element("event")
         for attribute in self.attributes:
             self.xml.append(attribute.xml)
 
@@ -179,7 +180,6 @@ class Trace():
     A Trace which has Events.
     """
     def __init__(self):
-        self.xml = ET.Element("trace")
         self.events = []
         self.attributes = []
 
@@ -190,6 +190,7 @@ class Trace():
         self.events.append(event)
 
     def build_trace(self):
+        self.xml = ET.Element("trace")
 
         for attribute in self.attributes:
             self.xml.append(attribute.xml)
