@@ -40,6 +40,10 @@ class Log():
         if isinstance(extension, Extension):
             self.extensions.append(extension)
 
+    def add_classifier(self, classifier):
+        assert isinstance(classifier, Classifier)
+        self.classifiers.append(classifier)
+
     def add_default_extensions(self):
         self.extensions = [
             Extension(name="Concept",
