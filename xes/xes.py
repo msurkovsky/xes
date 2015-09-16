@@ -5,8 +5,9 @@ from xml.dom import minidom
 class Log():
     """ An XES log class for adding traces to.
     """
-    def __init__(self):
+    def __init__(self, version="1.0"):
         self.CREATOR = "Python XES v1.2"
+        self.version = version
 
         self.attributes = []
         self.traces = []
@@ -80,7 +81,7 @@ class Log():
 
     def build_log(self):
         self.log = ET.Element("log")
-        self.log.set("xes.version", "1.0")
+        self.log.set("xes.version", self.version)
         self.log.set("xmlns", "http://www.xes-standard.org")
         self.log.set("xes.creator", self.CREATOR)
 
