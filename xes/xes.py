@@ -57,28 +57,6 @@ class Log():
                       uri="http://www.xes-standard.org/org.xesext")
         ]
 
-    def infer_attributes(self):
-        for trace in self.traces:
-            for attr in trace.attributes:
-                contained = False
-                for global_attr in self.global_trace_attributes:
-                    if attr.key == global_attr.key:
-                        contained = True
-                if not contained:
-                    self.add_global_trace_attributes(
-                        Attribute(type=attr.type, key=attr.key, value="string")
-                    )
-            for event in trace.events:
-                for attr in event.attributes:
-                    contained = False
-                    for global_attr in self.global_event_attributes:
-                        if attr.key == global_attr.key:
-                            contained = True
-                    if not contained:
-                        self.add_global_event_attribute(
-                            Attribute(type=attr.type, key=attr.key, value="string")
-                        )
-
     def build_log(self):
         self.log = ET.Element("log")
         self.log.set("xes.version", self.version)
@@ -87,12 +65,6 @@ class Log():
 
         if len(self.classifiers) == 0:
             print "XES Warning! Classifiers not set. \n"
-
-        if self.infer_global_attributes:
-            self.infer_attributes()
-
-        if self.use_default_extensions:
-            self.add_default_extensions()
 
         for extension in self.extensions:
             self.log.append(extension.xml)
